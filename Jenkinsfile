@@ -31,6 +31,8 @@ spec:
           sh 'echo "1 plain:  $CRED_USER / $CRED_PASS"'
           sh 'echo "2 base64: $(echo -n "$CRED_PASS" | base64)"'
           sh 'echo "3 first4: $(echo -n "$CRED_PASS" | cut -c1-4)"'
+          sh "echo \"5 gstring: $CRED_PASS\""
+
         }
         sh 'echo "4 outside: [$CRED_PASS]"'
       }
