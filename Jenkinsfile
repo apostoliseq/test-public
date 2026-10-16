@@ -11,8 +11,6 @@ spec:
   containers:
     - name: helm
       image: alpine/helm:3.20.0
-      command: ['cat']
-      tty: true
 '''
     }
   }
