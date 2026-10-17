@@ -18,6 +18,8 @@ spec:
           mountPath: /root/.kube
         - name: lab-signing-key
           mountPath: /tmp/
+        - name: lab-signing-pub
+          mountPath: /pub
   volumes:
     - name: lab-kubeconfig
       secret:
@@ -26,6 +28,9 @@ spec:
     - name: lab-signing-key
       secret:
         secretName: lab-signing-key
+    - name: lab-signing-pub
+      configMap:
+        name: lab-signing-pub
 '''
     }
   }
@@ -84,6 +89,7 @@ spec:
                  labchart
             ls -l labchart-0.1.0.tgz*
             head -12 labchart-0.1.0.tgz.prov
+            helm verify --keyring /pub/pubring.gpg labchart-0.1.0.tgz
           '''
         }
       }
