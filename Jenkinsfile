@@ -13,6 +13,14 @@ spec:
       image: alpine/helm:3.20.0
       command: ['cat']
       tty: true
+      volumeMounts:
+        - name: lab-kubeconfig
+          mountPath: /root/.kube
+  volumes:
+    - name: lab-kubeconfig
+      secret:
+        secretName: lab-kubeconfig
+        defaultMode: 0400
 '''
     }
   }
