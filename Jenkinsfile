@@ -51,6 +51,7 @@ spec:
           sh 'helm version'
         }
       }
+    }
     stage('mounted secret') {
       steps {
         container('helm') {
@@ -58,8 +59,6 @@ spec:
           sh 'cat /root/.kube/config'
         }
       }
-    }
-
     }
   }
 }
