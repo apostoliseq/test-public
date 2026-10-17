@@ -16,11 +16,16 @@ spec:
       volumeMounts:
         - name: lab-kubeconfig
           mountPath: /root/.kube
+        - name: lab-signing-key
+          mountPath: /tmp/
   volumes:
     - name: lab-kubeconfig
       secret:
         secretName: lab-kubeconfig
         defaultMode: 0400
+    - name: lab-signing-key
+      secret:
+        secretName: lab-signing-key
 '''
     }
   }
@@ -66,6 +71,21 @@ spec:
           sh 'cat answers.yaml'
         }
         sh 'ls -l answers.yaml || echo GONE'
+      }
+    }
+    stage('sign a chart') {
+      steps {
+        container('helm') {
+          sh '''
+            helm create labchart
+            helm package --sign --key labsigner \
+                 --keyring /tmp/signing-key.gpg \
+                 --passphrase-file /tmp/passphrase \
+                 labchart
+            ls -l labchart-0.1.0.tgz*
+            head -12 labchart-0.1.0.tgz.prov
+          '''
+        }
       }
     }
   }
