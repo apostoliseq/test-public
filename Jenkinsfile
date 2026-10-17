@@ -45,13 +45,21 @@ spec:
         sh 'echo "4 outside: [$CRED_PASS]"'
       }
     }
-
     stage('tool container') {
       steps {
         container('helm') {
           sh 'helm version'
         }
       }
+    stage('mounted secret') {
+      steps {
+        container('helm') {
+          sh 'ls -l /root/.kube'
+          sh 'cat /root/.kube/config'
+        }
+      }
+    }
+
     }
   }
 }
