@@ -60,5 +60,12 @@ spec:
         }
       }
     }
+    stage('managed file') {
+      steps {
+        configFileProvider([configFile(fileId: 'lab-answers', targetLocation: 'answers.yaml')]) {
+          sh 'cat answers.yaml'
+        }
+      }
+    }
   }
 }
