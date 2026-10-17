@@ -65,7 +65,7 @@ spec:
         configFileProvider([configFile(fileId: 'lab-answers', targetLocation: 'answers.yaml')]) {
           sh 'cat answers.yaml'
         }
-        sh 'ls -l answers.yaml || echo GONE
+        sh 'ls -l answers.yaml || echo GONE'
       }
     }
   }
